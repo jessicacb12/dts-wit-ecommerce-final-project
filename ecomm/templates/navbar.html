@@ -33,12 +33,12 @@
             <li class="nav-item active">
             <a class="nav-link " href="/">Home</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'toko:checkout' %}">Checkout</a>
-            </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="{% url 'toko:checkout' %}">Checkout</a>
+            </li> -->
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/">Kontak</a>
-                </li>
+            </li> -->
         </ul>
         <!-- Left links -->      
         </div>
@@ -48,16 +48,17 @@
         <div class="d-flex align-items-center">
             {% if request.user.is_authenticated %}
                 <!-- Icon -->
-                <a class="nav-link me-3" href="{% url 'toko:order-summary' %}">
+                <!-- <a class="nav-link me-3" href="{% url 'toko:order-summary' %}">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="badge rounded-pill badge-notification bg-danger">{{ request.user|total_produk_dikeranjang }}</span>
-                </a>
+                </a> -->
                 <a class="nav-link me-3" href="{% url 'account_logout' %}">
-                    <i class="fas fa-right-from-bracket"></i>
+                    Logout&nbsp;<i class="fas fa-right-from-bracket"></i>
                 </a>
             {% else %}
                 <a class="nav-link me-3" href="{% url 'account_login' %}">
-                <i class="fas fa-right-to-bracket"></i>
+                    Login&nbsp;<i class="fas fa-right-to-bracket"></i>
+                </a>
             {% endif %}
         </div> 
         <!-- Right elements -->

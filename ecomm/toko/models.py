@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify 
 
 PILIHAN_KATEGORI = (
     ('S', 'Shirt'),
@@ -34,6 +35,10 @@ class ProdukItem(models.Model):
 
     def __str__(self):
         return f"{self.nama_produk} - ${self.harga}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nama_produk)
+        super(ProdukItem, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("toko:produk-detail", kwargs={

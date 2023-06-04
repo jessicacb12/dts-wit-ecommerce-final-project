@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ecomm.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {

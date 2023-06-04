@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<!--Main layout-->
+<main class="mt-5">
+    <div class="container">
+        <!-- Heading -->
+        <h2 class="my-5 text-center">Add Product</h2>
+
+        <form method="POST" name="formAddProduct">
+            {% csrf_token %}
+            <!--Grid row-->
+            
+            <!--Grid row-->
+        </form>
+    </div>
+</main>
+<!--Main layout-->
+{% endblock content %}

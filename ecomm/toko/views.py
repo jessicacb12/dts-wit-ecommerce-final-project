@@ -8,13 +8,47 @@ from django.views import generic
 from paypal.standard.forms import PayPalPaymentsForm
 
 
-from .forms import CheckoutForm
+from .forms import CheckoutForm, AddProductForm
 from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment
 
 class HomeListView(generic.ListView):
     template_name = 'home.html'
     queryset = ProdukItem.objects.all()
     paginate_by = 4
+
+class AddProductView(LoginRequiredMixin, generic.FormView):
+    def get(self, *args):
+        form = AddProductForm()
+        template_name = 'add_product.html'
+        return render(self.request, template_name, {
+            'form': form
+        })
+    
+    def post(self):
+        form = AddProductForm(self.request.POST or None)
+        if self.request.user.is_authenticated:
+            if form.is_valid():
+                nama_produk = form.cleaned_data.get('nama_produk')
+                harga = form.cleaned_data.get('harga')
+                deskripsi = form.cleaned_data.get('deskripsi')
+                gambar = form.cleaned_data.get('gambar')
+                label = form.cleaned_data.get('label')
+                kategori = form.cleaned_data.get('kategori')
+                produk = ProdukItem(
+                    nama_produk=nama_produk,
+                    harga=harga,
+                    deskripsi=deskripsi,
+                    gambar=gambar,
+                    label=label,
+                    kategori=kategori,
+                )
+
+                produk.save()
+                return redirect('toko:home-produk-list')
+
+            messages.warning(self.request, 'Gagal tambah produk')
+        else:
+            return redirect('/accounts/login')
 
 class ProductDetailView(generic.DetailView):
     template_name = 'product_detail.html'
