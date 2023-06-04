@@ -43,7 +43,7 @@ class ProdukItem(models.Model):
     def get_absolute_url(self):
         return reverse("toko:produk-detail", kwargs={
             "slug": self.slug
-            })
+        })
 
     def get_add_to_cart_url(self):
         return reverse("toko:add-to-cart", kwargs={

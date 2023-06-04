@@ -54,6 +54,29 @@ class ProductDetailView(generic.DetailView):
     template_name = 'product_detail.html'
     queryset = ProdukItem.objects.all()
 
+    # override context data
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+        context["is_added_to_cart"] = False
+
+        produk_item = get_object_or_404(ProdukItem, slug=context['object'].slug)
+
+        order_query = Order.objects.filter(
+            user=self.request.user, ordered=False
+        )
+        if order_query.exists():
+            order = order_query[0]
+            if order.produk_items.filter(produk_item__slug=produk_item.slug).exists():
+                order_produk_item = OrderProdukItem.objects.filter(
+                    produk_item=produk_item,
+                    user=self.request.user,
+                    ordered=False
+                )
+                if order_produk_item.exists():
+                    context["is_added_to_cart"] = True
+
+        return context
+
 class CheckoutView(LoginRequiredMixin, generic.FormView):
     def get(self, *args, **kwargs):
         form = CheckoutForm()

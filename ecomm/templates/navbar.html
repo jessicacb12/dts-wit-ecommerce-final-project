@@ -48,10 +48,10 @@
         <div class="d-flex align-items-center">
             {% if request.user.is_authenticated %}
                 <!-- Icon -->
-                <!-- <a class="nav-link me-3" href="{% url 'toko:order-summary' %}">
+                <a class="nav-link me-3" href="{% url 'toko:order-summary' %}">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="badge rounded-pill badge-notification bg-danger">{{ request.user|total_produk_dikeranjang }}</span>
-                </a> -->
+                </a>
                 <a class="nav-link me-3" href="{% url 'account_logout' %}">
                     Logout&nbsp;<i class="fas fa-right-from-bracket"></i>
                 </a>
